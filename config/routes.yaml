@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+#
+#index:
+#  path: /acceuil
+#  controller: App\Controller\Acceuil::index
+#
+#produit:
+#  path: /produit
+#  controller: App\Controller\Produits::vente
+#
+#produitAdmin:
+#  path: /produitadmin
+#  controller: App\Controller\Produits::index

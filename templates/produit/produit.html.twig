@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('assets/produit.css') }}" type="text/css"/>
+    <script src="{{ asset('assets/produit.js') }}"></script>
+{% endblock %}
+{% block body %}
+
+
+
+
+
+
+
+    <div class="col" style="width: 100%">
+
+    {% for categorie in categorie %}
+    <section class="headline" style="background-image: url('{{ categorie.banniere }}');width: available"></section>
+    <p>{{ categorie.id }}</p>
+    <div class="container">
+        <div class="wrapper">
+            {% for manthe in manthe %}
+            {% if categorie.id == manthe.idCategorie.id %}
+            <div class="clash-card barbarian">
+
+                {% if manthe.idCategorie.id == '1' %}
+                <div class="clash-card__image clash-card__image--barbarian"
+                     style='background: url("../../public/fondsavane.jpg")'>
+                    {% elseif manthe.idCategorie.id == 2 %}
+                    <div class="clash-card__image clash-card__image--barbarian"
+                         style='background: url("../../public/fondocean.jpg");'>
+                        {% elseif manthe.idCategorie.id == 3 %}
+                        <div class="clash-card__image clash-card__image--barbarian"
+                             style='background: url("../../public/fondartique.jpg");'>
+                            {% elseif manthe.idCategorie.id == 4 %}
+                            <div class="clash-card__image clash-card__image--barbarian"
+                                 style='background: url("../../public/fondciel.jpg");'>
+                                {% else %}
+                                {% endif %}
+                                <img src="{{ manthe.imagePrincipale.chemin }}" alt="" style="height: 10vm"/>
+                            </div>
+                            <div class="clash-card__unit-name">{{ manthe.libelle }}</div>
+                            <div class="clash-card__unit-description">
+                                {{ manthe.description }}
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
+                                <div class="one-third">
+                                    <div class="stat">{{ manthe.stock }}</div>
+                                    <div class="stat-value">Stock</div>
+                                </div>
+                                <div class="one-third">
+                                    <a href="{{ path('produit_show', {'id': manthe.id}) }}">
+                                        <div class="stat" style="color: white">Voir</div>
+                                    </a>
+                                    <div class="stat-value"></div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">{{ manthe.prixht }}€</div>
+                                    <div class="stat-value">Prix</div>
+                                </div>
+
+                            </div>
+
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!-- end clash-card barbarian-->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% else %}
+
+                        {% endif %}
+                        {% else %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                {% endfor %}
+            </div>
+{% endblock %}

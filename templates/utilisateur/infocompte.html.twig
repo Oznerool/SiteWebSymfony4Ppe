@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('assets/profile.css') }}" type="text/css"/>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row -spacing-a">
+        <div class="col-md-12">
+            <h1>Mon Profile</h1>
+        </div>
+    </div>
+    <div class="row -spacing-a">
+        <div class="col-md-4">
+            <div class="profile-image">
+                <img src="https://www.xing.com/image/0_c_3_3fce34b38_15444149_3/fabian-pecher-foto.1024x1024.jpg" class="fullwidth"/>
+                <div class="edit-profile-image">
+        <span class="edit-profile-image__information">
+          <span class="fa fa-camera"></span>
+          <span class="edit-profile-image__label">
+            Modifier la photo
+          </span>
+        </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <h5>Mes Informations</h5>
+            <div class="row -spacing-b">
+                <div class="col-md-3">
+                    <p class="-typo-copy">Pseudo</p>
+                    <p class="-typo-copy">Prenom</p>
+                    <p class="-typo-copy">Nom</p>
+                    <p class="-typo-copy">Date de naissance</p>
+                    <p class="-typo-copy">E-Mail</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="-typo-copy -typo-copy--blue">{{ app.user.id }}</p>
+                    <p class="-typo-copy -typo-copy--blue">{{ app.user.prenom }}</p>
+                    <p class="-typo-copy -typo-copy--blue">{{ app.user.nom }}</p>
+                    <p class="-typo-copy -typo-copy--blue">{{ app.user.dateNaissance|date }}</p>
+                    <p class="-typo-copy -typo-copy--blue">{{ app.user.courriel }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="-typo-copy">N°<br>Telephone</p>
+                    <p class="-typo-copy">Password</p>
+
+                    <button class="btn btn--green">
+                        <span class="btn__icon fa fa-pencil"></span>
+                        <span class="btn__label">Modifier des informations</span>
+                    </button>
+
+                </div>
+                <div class="col-md-3">
+                    <p class="-typo-copy -typo-copy--blue"><br>{{ app.user.telephone }}</p>
+                    <p class="-typo-copy -typo-copy--blue">******</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

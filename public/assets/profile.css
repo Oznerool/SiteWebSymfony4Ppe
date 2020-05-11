@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=PT+Sans");
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+h1 {
+    font-family: "Oswald";
+    text-transform: uppercase;
+    color: #798796;
+    font-size: 2.5rem;
+}
+
+h5 {
+    font-family: "Oswald";
+    text-transform: uppercase;
+    color: #798796;
+    font-size: 1.563rem;
+}
+
+.fullwidth {
+    max-width: 100%;
+    height: auto;
+}
+
+.-spacing-a {
+    margin-top: 3.125rem;
+}
+.-spacing-b {
+    margin-top: 1.875rem;
+}
+
+.-typo-copy {
+    margin-bottom: 1.875rem;
+    color: #595556;
+    font-size: 1rem;
+    font-family: "PT Sans";
+}
+.-typo-copy--blue {
+    color: #798796;
+}
+
+.profile-image {
+    overflow: hidden;
+}
+.profile-image:hover .edit-profile-image {
+    opacity: 1;
+}
+
+.edit-profile-image {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0.9375rem;
+    right: 0.9375rem;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0.625rem;
+    cursor: pointer;
+    opacity: 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(231, 211, 116, 0.7)), to(rgba(8, 184, 184, 0.7)));
+    background: linear-gradient(to bottom, rgba(231, 211, 116, 0.7) 0%, rgba(8, 184, 184, 0.7) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3e7d374', endColorstr='#b308b8b8',GradientType=0 );
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.edit-profile-image__information {
+    color: #FFF;
+    font-size: 1.125rem;
+}
+.edit-profile-image__label {
+    margin-left: 0.5rem;
+    display: inline-block;
+    font-family: "PT Sans";
+}
+
+.btn {
+    border: none;
+    background: #FFF;
+    border-radius: 0;
+    padding: 0.875rem 0.625rem;
+    cursor: pointer;
+}
+.btn__label {
+    font-family: "PT Sans";
+    margin-left: 0.5rem;
+}
+.btn--green {
+    background: #08b8b8;
+    color: #FFF;
+}
