@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% block script %}<script src="https://js.stripe.com/v3/"></script>{% endblock %}
 {% block title %}Commande{% endblock %}
 
 {% block body %}
     <h1 style="color: black">Commande</h1>
    {% if item | length > 0 %}
+       <div class="row">
+           <div class="col">
 <table class="table">
     <thead>
     <tr>
@@ -54,9 +56,38 @@
     </tr>
     </tfoot>
 </table>
+           </div>
+           <div class="column-lg-10">
+               <table>
+                   <thead>
+                   <tr>
+                       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valider le panier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      </tr>
+                   </thead>
+                   <tbody style="text-align: center">
+                   <th><form>
+                           <label>Nom :</label>
+                           <input type="text" ><br>
+                       <label>N°Carte Bleu :</label>
+                           <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                       <br><label>CCV :</label>
+                           <input type="text">
+                       <label></label></form>
+                       <a  href="{{ path('commandeclient_facture') }}"><button>Acheter</button></a>
+                   </th>
+
+                   </tbody>
+                   <tfoot>
+
+                   </tfoot>
+               </table>
+           </div>
+       </div>
     {% else %}
 
     {% endif %}
 
+    {% block javascript %}
 
+    {% endblock %}
 {% endblock %}

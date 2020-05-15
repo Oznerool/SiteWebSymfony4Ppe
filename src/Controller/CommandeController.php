@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\LigneReservation;
 use App\Form\CommandeType;
+use App\Service\HTML2PDF;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Psr\Log\NullLogger;
@@ -66,18 +67,17 @@ class CommandeController extends AbstractController
     }
 
 
-
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add($id,SessionInterface $session)
+    public function add($id, SessionInterface $session)
     {
 
-        $panier = $session->get('panier',[]);
+        $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             $panier[$id]++;
-        }else{
+        } else {
             $panier[$id] = 1;
         }
 
@@ -90,14 +90,14 @@ class CommandeController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="cart_remove")
      */
-    public function remove($id,SessionInterface $session)
+    public function remove($id, SessionInterface $session)
     {
 
-        $panier = $session->get('panier',[]);
+        $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             unset($panier[$id]);
-    }
+        }
 
         $session->set('panier', $panier);
 
@@ -109,12 +109,12 @@ class CommandeController extends AbstractController
     /**
      * @Route("/panier/moinsun/{id}", name="cart_moinsun")
      */
-    public function moinsun($id,SessionInterface $session)
+    public function moinsun($id, SessionInterface $session)
     {
 
-        $panier = $session->get('panier',[]);
+        $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             $panier[$id]--;
         }
 
@@ -130,14 +130,14 @@ class CommandeController extends AbstractController
      * @Route("/panier", name="commandeclient_show")
      */
 
-    public function panier(SessionInterface $session, ProduitRepository $produitRepository){
+    public function panier(SessionInterface $session, ProduitRepository $produitRepository)
+    {
 
-        $panier = $session->get('panier',[]);
-
+        $panier = $session->get('panier', []);
 
 
         $panierWithData = [];
-        foreach($panier as $id => $quantity){
+        foreach ($panier as $id => $quantity) {
             $panierWithData[] = [
                 'product' => $produitRepository->find($id),
                 'quantity' => $quantity
@@ -147,18 +147,62 @@ class CommandeController extends AbstractController
 
         $total = 0;
 
-        foreach($panierWithData as $item){
+        foreach ($panierWithData as $item) {
             $totalItem = $item['product']->getPrixht() * $item['quantity'];
             dump($item);
             $total += $totalItem;
         }
-        return $this-> render('commande/show.html.twig',[
+
+        return $this->render('commande/show.html.twig', [
             'item' => $panierWithData,
             'total' => $total
         ]);
     }
 
+    /**
+     * @Route("/panier/payer", name="payer")
+     */
+    public function payer(){
+        return $this->render('paypal/payment.php');
+    }
 
+    /**
+     * @Route("/panier/facture", name="commandeclient_facture")
+     * @return Response
+     */
+
+    public function facture(SessionInterface $session, ProduitRepository $produitRepository)
+    {
+
+        $panier1 = $session->get('panier', []);
+
+
+        $panierWithData1 = [];
+        foreach ($panier1 as $id => $quantity) {
+            $panierWithData1[] = [
+                'product' => $produitRepository->find($id),
+                'quantity' => $quantity
+            ];
+            dump($panierWithData1);
+        }
+
+        $total = 0;
+
+        foreach ($panierWithData1 as $item) {
+            $totalItem = $item['product']->getPrixht() * $item['quantity'];
+            dump($item);
+            $total += $totalItem;
+        }
+
+        $template = $this->renderView('views/pdf.html.twig', [
+            'item' => $panierWithData1
+        ]);
+
+        $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', array(10, 15, 10, 15));
+        $html2pdf->writeHTML($template);
+        return $html2pdf->output("FactureZooHome.pdf");
+
+    }
 
 
     /**
@@ -186,7 +230,7 @@ class CommandeController extends AbstractController
      */
     public function delete(Request $request, Commande $commande): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($commande);
             $entityManager->flush();

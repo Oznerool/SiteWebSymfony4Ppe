@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{{ asset('assets/index.css') }}" type="text/css" />
         <script src="{{ asset('assets/index.js') }}"></script>
         {% block style %}{% endblock %}
+        {% block script %}{% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     </head>
 
@@ -29,9 +30,16 @@
                     <li class="nav-item"><a href="{{ path('utilisateur_new') }}">Inscription</a></li>
                 <li class="nav-item"><a href="{{ path('utilisateur_login') }}">Connexion</a></li>
                 {% else %}
-                    <li class="nav-item"><a href="{{ path('commandeclient_show')}}">Panier</a></li>
-                    <li class="nav-item"><a href="{{ path('utilisateur_profile') }}">Profile</a></li>
-                <li class="nav-item"><a href="{{ path('utilisateur_logout') }}">Deconnexion</a></li>
+                    {% if app.user.courriel == 'lorenzo1916@hotmail.fr' %}
+                        <li class="nav-item"><a href="{{ path('back')}}">Back Office</a></li>
+                        <li class="nav-item"><a href="{{ path('commandeclient_show')}}">Panier</a></li>
+                        <li class="nav-item"><a href="{{ path('utilisateur_logout') }}">Deconnexion</a></li>
+                         {% else %}
+                             <li class="nav-item"><a href="{{ path('commandeclient_show')}}">Panier</a></li>
+                             <li class="nav-item"><a href="{{ path('utilisateur_profile') }}">Profile</a></li>
+                             <li class="nav-item"><a href="{{ path('utilisateur_logout') }}">Deconnexion</a></li>
+                    {% endif %}
+
 
                 {% endif %}
                 <i class="fas fa-search" id="search-icon"></i>
@@ -46,4 +54,7 @@
     <body>
     {% block body %}{% endblock %}
     </body>
+
+{% block javascript %}{% endblock %}
+
 </html>

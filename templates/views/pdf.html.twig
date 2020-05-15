@@ -1,0 +1,56 @@
+<style type="text/css">
+    table{width: 100%; border-collapse: collapse}
+    .header td{width: 50%; vertical-align: top}
+    .text-left{text-align: left}
+    .text-right{text-align: right}
+    .text-center{text-align: center}
+    .separator{height: 150px; width: 100%}
+    .content td{border:  solid 1px #CFD1D2;padding: 5px;}
+    .content th{border: solid 1px #000000; padding: 5px; background-color: #000000;color: #ffffff}
+</style>
+
+<page backtop="20mn" backright="18mn" backbottom="20mn" backleft="10mn">
+    <h1 style="text-align: center"> Facture</h1>
+    <table class="header">
+        <tr>
+            <td class="text-left">
+                <b>{{ app.user.prenom }} {{ app.user.nom }}</b>
+                <br>{{ app.user.courriel }}
+                <br>{{ app.user.username }}
+                <br>France
+            </td>
+
+            <td class="text-right">
+                <b>ZooHome</b>
+                <br>20 rue du pastis
+                <br>51
+                <br>SUD
+            </td>
+        </tr>
+    </table>
+</page>
+<h1 style="text-align: center"> Contenue de la commande</h1>
+<table class="content">
+
+    <thead>
+    <tr>
+        <th class="text-left" style="...">Designation</th>
+        <th class="text-center" style="...">PU</th>
+        <th class="text-center" style="...">Quantité</th>
+        <th class="text-right" style="...">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set total = 0 %}
+    {%  for item in item %}
+    <tr>
+        <td class="text-center">{{ item.product.libelle }}</td>
+        <td class="text-center">{{ item.product.prixht }}</td>
+        <td class="text-center"> {{ item.quantity }}</td>
+        <td class="text-right">{{ item.quantity * item.product.prixht}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+    </tr>
+    </tbody>
+</table>

@@ -50,11 +50,14 @@ public function profile(){
     /**
      * @Route("/new", name="utilisateur_new", methods={"GET","POST"})
      */
-    public function new(Request $request,UserPasswordEncoderInterface $encoder): Response
+    public function new(Request $request,UserPasswordEncoderInterface $encoder,\Swift_Mailer $mailer): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
+
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -64,6 +67,24 @@ public function profile(){
 
             $entityManager->persist($utilisateur);
             $entityManager->flush();
+
+            $message = (new \Swift_Message('Mon premier email via Symfony')) // Le sujet
+            ->setFrom('noreply@ZooHome.fr') // L'email d'envoi
+            ->setTo($utilisateur->getCourriel()) // L'email destinataire
+            // Le contenu de l'email, qu'on va générer à partir d'un twig
+            ->setBody(
+            // Utilisation du renderView au lieu du render
+            // Permettant de renvoyer uniquement le html et non un objet Response
+                $this->renderView(
+                    'utilisateur/contact-email.html.twig',
+                    ['contact' => $utilisateur]
+                ),
+                'text/html'
+            )
+            ;
+
+            // On utilise le mailer pour envoyer notre \Swift_Message
+            $mailer->send($message);
 
             return $this->redirectToRoute('utilisateur_login');
         }

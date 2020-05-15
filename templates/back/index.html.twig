@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BackController!{% endblock %}
+{% block style %}
+    <style></style>
+{% endblock %}
+{% block body %}
+    {% if app.user.courriel == 'lorenzo1916@hotmail.fr' %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+
+        <div class="col"></div>
+            <div class="col" style="text-align: center">
+                <h3>Adresse</h3>
+                <a href="{{ path('adresse_new') }}"><button>Ajouter une addresse</button></a>
+                <a href="{{ path('adresse_index') }}"><button>Voir liste addresse</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Categorie</h3>
+                <a href="{{ path('categorie_new') }}"><button>Ajouter une categorie</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Commande</h3>
+
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Image</h3>
+                <a href="{{ path('image_new') }}"><button>Ajouter une Image</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Magasin</h3>
+                <a href="{{ path('magasin_new') }}"><button>Ajouter un Magasin</button></a>
+            </div>
+            <div class="col"style="text-align: center">
+                <h3 >Produit</h3>
+                <a href="{{ path('produit_new') }}"><button>Ajouter un Produit</button></a>
+                <a href="{{ path('sitemapproduit') }}"><button>Page XML</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Lieux</h3>
+                <a href="{{ path('resider_new') }}"><button>Ajouter un Lieux</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Utilisateur</h3>
+                <a href="{{ path('utilisateur_new') }}"><button>Ajouter un Utilisateur</button></a>
+                <a href="{{ path('sitemaputilisateur') }}"><button>Page XML</button></a>
+            </div>
+            <div class="col" style="text-align: center">
+                <h3>Ville</h3>
+                <a href="{{ path('ville_new') }}"><button>Ajouter une Ville</button></a>
+            </div>
+
+            <div class="col"></div>
+    </div>
+{% else %}
+    <h1 style="text-align: center">Tu n'est pas Modérateur</h1>
+    {% endif %}
+
+{% endblock %}

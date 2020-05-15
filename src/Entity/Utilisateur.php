@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Utilisateur
@@ -29,21 +30,21 @@ class Utilisateur implements UserInterface
 
     /**
      * @var string|null
-     *
+     *@Groups("post:read")
      * @ORM\Column(name="nom", type="string", length=50, nullable=true)
      */
     private $nom;
 
     /**
      * @var string|null
-     *
+     *@Groups("post:read")
      * @ORM\Column(name="prenom", type="string", length=50, nullable=true)
      */
     private $prenom;
 
     /**
      * @var string|null
-     *
+     *@Groups("post:read")
      * @ORM\Column(name="courriel", type="string", length=50, nullable=true)
 
      */
@@ -51,7 +52,7 @@ class Utilisateur implements UserInterface
 
     /**
      * @var string|null
-     *
+     *@Groups("post:read")
      * @ORM\Column(name="telephone", type="string", length=50, nullable=true)
      */
     private $telephone;
@@ -65,17 +66,17 @@ class Utilisateur implements UserInterface
 
     /**
      * @var string|null
-     *
+     *@Groups("post:read")
      * @ORM\Column(name="mot_de_passe", type="string", length=255, nullable=true)
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit contenir minimum 8 caractères")
-     * @Assert\EqualTo(propertyPath="verifmdp", message="Votre mot de passe doit etre identique")
+     *
      */
     private $motDePasse;
 
 
     /**
-
-     *
+    @Groups("post:read")
+     *@Assert\EqualTo(propertyPath="motDePasse", message="Votre mot de passe doit etre identique")
      */
 
     public $verifmdp;
